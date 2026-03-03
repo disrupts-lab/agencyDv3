@@ -12,7 +12,6 @@ const services = [
     slug: "presencia-digital",
     title: "Presencia Digital",
     benefit: "Tu sitio web generando clientes mientras vos hacés otra cosa",
-    price: "Desde $499",
     badge: null,
     platforms: null,
   },
@@ -21,7 +20,6 @@ const services = [
     slug: "automatizacion-ia",
     title: "Automatización con IA",
     benefit: "Un asistente que responde por vos en WhatsApp e Instagram las 24hs",
-    price: "Desde $150/bot",
     badge: null,
     platforms: null,
   },
@@ -30,7 +28,6 @@ const services = [
     slug: "ventas-marketing",
     title: "Ventas y Marketing",
     benefit: "Publicidad en Google y Meta que trae clientes reales, no solo visitas",
-    price: "Desde $200/mes",
     badge: null,
     platforms: null,
   },
@@ -39,7 +36,6 @@ const services = [
     slug: "redes-contenido",
     title: "Redes Sociales & Contenido",
     benefit: "Diseñamos, publicamos y gestionamos tus redes para que vos te enfoques en vender",
-    price: "Desde $300/mes",
     badge: "Nuevo",
     platforms: ["Instagram", "TikTok", "Facebook"],
   },
@@ -48,7 +44,6 @@ const services = [
     slug: "gestion-pagos",
     title: "Gestión y Pagos",
     benefit: "Cobros integrados y métricas en tiempo real desde un solo panel",
-    price: "Incluido",
     badge: null,
     platforms: null,
   },
@@ -57,7 +52,6 @@ const services = [
     slug: "seguridad-soporte",
     title: "Seguridad y Soporte",
     benefit: "Tu sitio protegido y con soporte cuando lo necesitás, sin sorpresas",
-    price: "Incluido",
     badge: null,
     platforms: null,
   },
@@ -120,11 +114,8 @@ function ServiceRow({
             )}
           </div>
 
-          {/* Right — price + arrow */}
-          <div className="flex items-center gap-4 flex-shrink-0 pt-0.5">
-            <span className="text-sm font-semibold text-foreground/70 group-hover:text-foreground transition-colors duration-300 whitespace-nowrap">
-              {service.price}
-            </span>
+          {/* Right — arrow */}
+          <div className="flex items-center flex-shrink-0 pt-0.5">
             <ArrowUpRight className="w-4 h-4 text-muted-foreground/40 group-hover:text-emerald-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300 flex-shrink-0" />
           </div>
 
