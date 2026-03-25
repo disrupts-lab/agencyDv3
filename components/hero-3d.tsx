@@ -831,14 +831,13 @@ export function Hero3D() {
     }
 
     resize()
-    rocket.onload = () => {
-      if (!animationFrame) {
-        animationFrame = window.requestAnimationFrame(render)
-      }
-    }
 
-    if (rocket.complete) {
-      animationFrame = window.requestAnimationFrame(render)
+    // Start animation immediately, don't wait for image load
+    animationFrame = window.requestAnimationFrame(render)
+
+    // Image can load in parallel
+    rocket.onload = () => {
+      // Image loaded, it will be used in the next frame
     }
 
     window.addEventListener("resize", resize)

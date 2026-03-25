@@ -3,18 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
-import { useRef, useEffect, Suspense } from "react";
+import { useRef, useEffect, memo } from "react";
 import gsap from "gsap";
-import dynamic from "next/dynamic";
+import { Hero3D as Hero3DComponent } from "./hero-3d";
 
-const Hero3D = dynamic(
-  () => import("./hero-3d").then((mod) => ({ default: mod.Hero3D })),
-  {
-    ssr: false,
-  },
-);
+const Hero3D = memo(Hero3DComponent);
 
-export function Hero() {
+function HeroContent() {
   const container = useRef(null);
 
   useEffect(() => {
@@ -54,9 +49,7 @@ export function Hero() {
       className="relative min-h-screen flex items-center justify-start overflow-hidden bg-[#f6f8fb] pl-8 md:pl-16 lg:pl-24"
     >
       {/* 3D Canvas Background */}
-      <Suspense fallback={null}>
-        <Hero3D />
-      </Suspense>
+      <Hero3D key="hero-3d-static" />
 
       <div
         aria-hidden="true"
@@ -142,3 +135,5 @@ export function Hero() {
     </section>
   );
 }
+
+export const Hero = memo(HeroContent);
