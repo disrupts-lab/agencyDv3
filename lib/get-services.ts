@@ -14,10 +14,6 @@ export async function getAllServices() {
       module: await import('@/content/servicios/ventas-marketing.mdx'),
     },
     {
-      slug: 'redes-contenido',
-      module: await import('@/content/servicios/redes-contenido.mdx'),
-    },
-    {
       slug: 'gestion-pagos',
       module: await import('@/content/servicios/gestion-pagos.mdx'),
     },

@@ -18,10 +18,10 @@ export default async function ServiciosPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground tracking-tight">
-              Nuestros Servicios
+              Todo lo que necesitás para vender online
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-              Soluciones integrales de digitalización para transformar tu negocio tradicional en una empresa digital competitiva
+              Un solo equipo para web, automatización, marketing y redes. Sin freelancers sueltos, sin coordinación interminable.
             </p>
           </div>
         </div>

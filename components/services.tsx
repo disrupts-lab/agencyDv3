@@ -33,14 +33,6 @@ const services = [
   },
   {
     number: "04",
-    slug: "redes-contenido",
-    title: "Redes Sociales & Contenido",
-    benefit: "Diseñamos, publicamos y gestionamos tus redes para que vos te enfoques en vender",
-    badge: "Nuevo",
-    platforms: ["Instagram", "TikTok", "Facebook"],
-  },
-  {
-    number: "05",
     slug: "gestion-pagos",
     title: "Gestión y Pagos",
     benefit: "Cobros integrados y métricas en tiempo real desde un solo panel",

@@ -8,8 +8,7 @@ const footerLinks = {
     { label: "Presencia Digital", href: "/servicios/presencia-digital" },
     { label: "Automatización con IA", href: "/servicios/automatizacion-ia" },
     { label: "Ventas y Marketing", href: "/servicios/ventas-marketing" },
-    { label: "Redes Sociales & Contenido", href: "/servicios/redes-contenido" },
-    { label: "Gestión y Pagos", href: "/servicios/gestion-pagos" },
+{ label: "Gestión y Pagos", href: "/servicios/gestion-pagos" },
     { label: "Seguridad y Soporte", href: "/servicios/seguridad-soporte" },
   ],
   empresa: [
@@ -63,8 +62,7 @@ export function Footer() {
             </p>
 
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed max-w-xs">
-              Transformamos negocios en la era digital con soluciones innovadoras y tecnología de
-              vanguardia.
+              Agencia digital para PyMEs en LATAM. Web, IA y marketing desde un solo lugar.
             </p>
 
             <a

@@ -1,44 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { Instagram, Facebook, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import {
-  Mail,
-  Instagram,
-  Facebook,
-  CheckCircle,
-  Loader2,
-  Send,
-} from "lucide-react"
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
 
-const schema = z.object({
-  name: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  email: z.string().email("Email inválido"),
-  subject: z.string().min(3, "El asunto debe tener al menos 3 caracteres"),
-  message: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
-})
-
-type FormData = z.infer<typeof schema>
-
-const contactInfo = [
-  {
-    icon: Mail,
-    title: "Email",
-    value: "contacto@disruptlab.com",
-    href: "mailto:contacto@disruptlab.com",
-  },
-]
-
-// Social links with individual brand accent colors for hover
 const socialLinks = [
   {
     icon: Instagram,
@@ -57,38 +24,6 @@ const socialLinks = [
 export function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [sent, setSent] = useState(false)
-  const [serverError, setServerError] = useState<string | null>(null)
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
-
-  async function onSubmit(data: FormData) {
-    setServerError(null)
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-
-      const json = await res.json()
-
-      if (!res.ok) {
-        setServerError(json.error ?? "Error al enviar el mensaje")
-        return
-      }
-
-      setSent(true)
-      reset()
-    } catch {
-      setServerError("No se pudo conectar. Revisá tu conexión e intentá de nuevo.")
-    }
-  }
 
   return (
     <section id="contacto" className="py-20 md:py-32 relative" ref={ref}>
@@ -105,224 +40,64 @@ export function Contact() {
 
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 text-balance leading-[1.05] tracking-tight">
             Hablemos de tu{" "}
-            <span className="text-muted-foreground">
-              Proyecto
-            </span>
+            <span className="text-muted-foreground">Proyecto</span>
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-pretty leading-relaxed">
-            Estamos listos para transformar tu visión en realidad. Contáctanos y comencemos a
-            trabajar juntos
+          <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto text-pretty leading-relaxed">
+            Contanos en qué estás trabajando y te respondemos en menos de 24 horas hábiles.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
-          {/* Form — wider col */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-3"
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          className="flex flex-col items-center gap-10"
+        >
+          {/* WhatsApp CTA */}
+          <a
+            href="https://wa.me/543513835368"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Card className="bg-card border-border">
-              <CardContent className="p-7 md:p-8">
-                {sent ? (
-                  <div className="flex flex-col items-center justify-center gap-5 py-14 text-center">
-                    <div className="w-16 h-16 rounded-full bg-foreground/5 border border-foreground/15 flex items-center justify-center">
-                      <CheckCircle className="w-8 h-8 text-foreground" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-foreground">¡Mensaje enviado!</h3>
-                    <p className="text-muted-foreground">Te responderemos a la brevedad.</p>
-                    <Button
-                      variant="outline"
-                      onClick={() => setSent(false)}
-                      className="border-border hover:border-foreground/20 hover:text-foreground"
-                    >
-                      Enviar otro mensaje
-                    </Button>
-                  </div>
-                ) : (
-                  <form className="space-y-5" noValidate onSubmit={handleSubmit(onSubmit)}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium mb-1.5 text-foreground"
-                        >
-                          Nombre
-                        </label>
-                        <Input
-                          id="name"
-                          placeholder="Tu nombre"
-                          className="bg-background border-border focus:border-foreground/30 focus:ring-foreground/10 transition-colors"
-                          {...register("name")}
-                        />
-                        {errors.name && (
-                          <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
-                        )}
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium mb-1.5 text-foreground"
-                        >
-                          Email
-                        </label>
-                        <Input
-                          id="email"
-                          type="email"
-                          placeholder="tu@email.com"
-                          className="bg-background border-border focus:border-foreground/30 focus:ring-foreground/10 transition-colors"
-                          {...register("email")}
-                        />
-                        {errors.email && (
-                          <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="subject"
-                        className="block text-sm font-medium mb-1.5 text-foreground"
-                      >
-                        Asunto
-                      </label>
-                      <Input
-                        id="subject"
-                        placeholder="¿En qué podemos ayudarte?"
-                        className="bg-background border-border focus:border-foreground/30 focus:ring-foreground/10 transition-colors"
-                        {...register("subject")}
-                      />
-                      {errors.subject && (
-                        <p className="text-red-400 text-xs mt-1">{errors.subject.message}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-medium mb-1.5 text-foreground"
-                      >
-                        Mensaje
-                      </label>
-                      <Textarea
-                        id="message"
-                        placeholder="Cuéntanos sobre tu proyecto..."
-                        rows={6}
-                        className="bg-background border-border focus:border-foreground/30 focus:ring-foreground/10 transition-colors resize-none"
-                        {...register("message")}
-                      />
-                      {errors.message && (
-                        <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
-                      )}
-                    </div>
-
-                    {serverError && (
-                      <p className="text-red-400 text-sm bg-red-400/5 border border-red-400/20 rounded-lg px-4 py-3">
-                        {serverError}
-                      </p>
-                    )}
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full gradient-button font-semibold transition-shadow"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Enviando...
-                        </>
-                      ) : (
-                        <>
-                          Enviar Mensaje
-                          <Send className="w-4 h-4 ml-2" />
-                        </>
-                      )}
-                    </Button>
-                    <p className="text-xs text-center text-muted-foreground/70">
-                      Sin compromiso. Tus datos están seguros.
-                    </p>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          {/* Sidebar — contact info + socials */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-2 space-y-8"
-          >
-            <div>
-              <h3 className="text-lg font-bold mb-5 text-foreground">Información de Contacto</h3>
-              <div className="space-y-3">
-                {contactInfo.map((info, index) => (
-                  <motion.a
-                    key={info.title}
-                    href={info.href}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-                    transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                    className="relative flex items-start gap-4 p-4 bg-card border border-border rounded-xl hover:border-foreground/20 hover:bg-foreground/5 transition-all duration-300 group"
-                  >
-                    <div className="absolute left-0 top-1/4 bottom-1/4 w-0.5 bg-foreground/0 group-hover:bg-foreground/50 rounded-full transition-all duration-300" />
-
-                    <div className="w-10 h-10 rounded-lg bg-foreground/5 border border-foreground/10 flex items-center justify-center flex-shrink-0 group-hover:border-foreground/20 transition-all duration-300">
-                      <info.icon className="w-5 h-5 text-foreground" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-muted-foreground mb-0.5 uppercase tracking-wide">
-                        {info.title}
-                      </div>
-                      <div className="text-foreground font-medium text-sm group-hover:text-foreground transition-colors">
-                        {info.value}
-                      </div>
-                    </div>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-bold mb-5 text-foreground">Síguenos</h3>
-              <div className="flex gap-3">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className={`w-11 h-11 rounded-xl bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${social.hoverClass}`}
-                  >
-                    <social.icon className="w-4 h-4 text-muted-foreground" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Response time callout */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              className="p-5 rounded-xl border border-foreground/10 bg-foreground/5"
+            <Button
+              size="lg"
+              className="gradient-button text-base md:text-lg px-10 py-7 font-semibold rounded-lg transition-all hover:scale-105 gap-3"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <div className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
-                <span className="text-sm font-semibold text-foreground">Respuesta Rápida</span>
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Respondemos todos los mensajes dentro de las{" "}
-                <span className="text-foreground font-medium">24 horas</span> hábiles.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
+              <MessageCircle className="w-5 h-5" />
+              Escribinos por WhatsApp
+            </Button>
+          </a>
+
+          {/* Response time */}
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+            <div className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
+            <span>
+              Respondemos en menos de{" "}
+              <span className="text-foreground font-medium">24 horas hábiles</span>
+            </span>
+          </div>
+
+          {/* Social links */}
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-xs uppercase tracking-widest text-muted-foreground/60">
+              También en redes
+            </span>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className={`w-11 h-11 rounded-xl bg-card border border-border/40 flex items-center justify-center transition-all duration-300 ${social.hoverClass}`}
+                >
+                  <social.icon className="w-4 h-4 text-muted-foreground" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

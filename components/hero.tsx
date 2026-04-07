@@ -74,28 +74,28 @@ function HeroContent() {
       <div className="relative z-10 max-w-4xl">
         <h1 className="hero-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold mb-6 leading-[1.05] tracking-tighter text-foreground">
           <span className="inline-block overflow-hidden">
-            <span className="inline-block">Desarrollamos&nbsp;</span>
+            <span className="inline-block">Tu negocio&nbsp;</span>
           </span>
           <span className="inline-block overflow-hidden">
             <span className="inline-block text-emerald-300">
-              soluciones web
+              online,
             </span>
           </span>
           <br />
           <span className="inline-block overflow-hidden">
-            <span className="inline-block">a medida para</span>
+            <span className="inline-block">funcionando en</span>
           </span>
           <br />
           <span className="inline-block overflow-hidden">
             <span className="inline-block text-muted-foreground">
-              tu negocio
+              15 días
             </span>
           </span>
         </h1>
 
         <p className="hero-subtitle mb-10 max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-lg lg:text-xl">
-          Desde landing pages hasta e-commerce y sistemas complejos. Tecnología
-          moderna, diseño impecable y resultados medibles.
+          Web, automatización y marketing desde un solo equipo. Sin coordinar
+          freelancers. Sin dar vueltas.
         </p>
 
         <div className="hero-cta flex flex-wrap items-center gap-4">

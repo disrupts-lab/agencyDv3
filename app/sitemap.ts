@@ -35,12 +35,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${base}/servicios/redes-contenido`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
       url: `${base}/servicios/gestion-pagos`,
       lastModified: new Date(),
       changeFrequency: "monthly",
